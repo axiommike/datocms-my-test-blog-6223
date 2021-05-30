@@ -5,12 +5,12 @@ export default function Intro() {
         Blog.
       </h1>
       <h4 className="text-center md:text-left text-lg mt-5 md:pl-8">
-        This is an example blog site with {' '}
+        This is Mike Cameron's example blog site with {' '}
         <a
           href="https://nextjs.org/"
           className="underline hover:text-success duration-200 transition-colors"
         >
-          Next.js
+          Next.js Stuff
         </a>{' '}
         and{' '}
         <a
