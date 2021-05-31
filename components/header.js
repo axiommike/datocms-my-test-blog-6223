@@ -13,7 +13,7 @@ import { route } from 'next/dist/next-server/server/router';
 const navigation = [
   { name: 'Blog', href: '/posts', current: false },
   { name: 'About Me', href: '/about', current: false },
-  { name: 'Contact Me', href: '#', current: false },
+  { name: 'Contact Me', href: '/contact', current: false },
   { name: 'Calendar', href: '#', current: false },
 ]
  
@@ -67,8 +67,8 @@ export default function Header(props) {
                         href={item.href}
                         className={classNames(
                           
-                          item.href === currentPath ? 'border-red-500 text-black border-b-4' : 'text-black hover:bg-red-700 hover:text-white',
-                          'px-3 py-2 rounded-md text-sm font-medium'
+                          item.href === currentPath ? 'border-red-500 text-black border-b-4' : 'text-black hover:bg-red-700 hover:text-white rounded-md',
+                          'px-3 py-2 text-sm font-medium'
                         )}
                         aria-current={item.current ? 'page' : undefined}
                       >
