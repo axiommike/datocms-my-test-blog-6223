@@ -1,28 +1,32 @@
+import { Disclosure } from '@headlessui/react'
 import Container from './container'
 
 export default function Footer() {
   return (
+    
     <footer className="bg-accent-1 border-t border-accent-2">
+      <Disclosure><Disclosure.Panel className="text-gray-500">
+        Yes! You can purchase a license that you can share with your entire
+        team.
+      </Disclosure.Panel></Disclosure>
       <Container>
-        <div className="py-28 flex flex-col lg:flex-row items-center">
-          <h3 className="text-4xl lg:text-5xl font-bold tracking-tighter leading-tight text-center lg:text-left mb-10 lg:mb-0 lg:pr-4 lg:w-1/2">
-            Statically Generated with Next.js.
-          </h3>
-          <div className="flex flex-col lg:flex-row justify-center items-center lg:pl-4 lg:w-1/2">
-            <a
-              href="https://www.datocms.com/docs/next-js"
-              className="mx-3 bg-black hover:bg-white hover:text-black border border-black text-white font-bold py-3 px-12 lg:px-8 duration-200 transition-colors mb-6 lg:mb-0"
-            >
-              Read Documentation
-            </a>
-            <a
-              href="https://github.com/datocms/nextjs-demo"
-              className="mx-3 font-bold hover:underline"
-            >
-              View on GitHub
-            </a>
-          </div>
-        </div>
+      <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start h-20">
+                <div className="flex-shrink-0 flex items-center">
+                  
+                  <img
+                    className="hidden lg:block h-8 w-auto"
+                    src="https://mikecameron.ca/wp-content/uploads/2020/09/Mike-Cameron-Logo-Anternative.png"
+                    alt="Workflow"
+                  />
+                  
+                </div>
+                
+                <div className="hidden sm:block sm:ml-6">
+                  
+                </div>
+              </div>
+             
+              
       </Container>
     </footer>
   )

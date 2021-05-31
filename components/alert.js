@@ -24,14 +24,13 @@ export default function Alert({ preview }) {
             </>
           ) : (
             <>
-              This is page is showing published content.{' '}
+              This is my development practice page. To go to my main home on the web{' '}
               <a
-                href="/api/preview"
+                href="https://mikecameron.ca"
                 className="underline hover:text-cyan duration-200 transition-colors"
               >
                 Click here
-              </a>{' '}
-              to enter preview mode!
+              </a>
             </>
           )}
         </div>
