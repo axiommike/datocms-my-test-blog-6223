@@ -1,85 +1,115 @@
-import React from "react";
-import { Card, CardBody, CardFooter, Col, Grid } from "tailwind-react-ui";
+import Head from "next/head";
+import Image from 'next/image'
+import { renderMetaTags, useQuerySubscription } from "react-datocms";
+import { Card, CardBody, CardFooter } from "tailwind-react-ui";
+import Avatar from "../../components/avatar";
 import Container from "../../components/container";
+import HeroPost from "../../components/hero-post";
+import Intro from "../../components/intro";
 import Layout from "../../components/layout";
+import MoreStories from "../../components/more-stories";
+import PostPreview from "../../components/post-preview";
+import { request } from "../../lib/datocms";
+import { metaTagsFragment, responsiveImageFragment } from "../../lib/fragments";
 
+export async function getStaticProps({ preview }) {
+  const graphqlRequest = {
+    query: `
+      {
+        site: _site {
+          favicon: faviconMetaTags {
+            ...metaTagsFragment
+          }
+        }
+        blog {
+          seo: _seoMetaTags {
+            ...metaTagsFragment
+          }
+        }
+        allPosts(orderBy: date_DESC, first: 20) {
+          title
+          slug
+          excerpt
+          date
+          coverImage {
+            responsiveImage(imgixParams: {fm: jpg, fit: crop, w: 2000, h: 1000 }) {
+              ...responsiveImageFragment
+            }
+          }
+          author {
+            name
+            picture {
+              url(imgixParams: {fm: jpg, fit: crop, w: 100, h: 100, sat: -100})
+            }
+          }
+        }
+      }
 
+      ${metaTagsFragment}
+      ${responsiveImageFragment}
+    `,
+    preview,
+  };
 
-function index({ subscription}) {
-  console.log(subscription)
-  
-
-  return (
-    <>
-    <Layout>
-        <Container>
-      <div className="grid lg:grid-cols-4 sm:grid-cols-1 gap-4">
-        
-        <Card className="block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden mt-5">
-          <CardBody>
-            <div className="relative pb-48 overflow-hidden">
-              <img
-                className="absolute inset-0 h-full w-full object-cover rounded-t-lg"
-                src="https://images.unsplash.com/photo-1475855581690-80accde3ae2b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-                alt=""
-              />
-            </div>
-
-            <h2 className="mt-2 mb-2  font-bold">test</h2>
-            <div className='text-sm'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
-          </CardBody>
-          <CardFooter></CardFooter>
-        </Card>
-        
-
-        <Card className="block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden mt-5">
-          <CardBody>Inside a card</CardBody>
-          <CardFooter></CardFooter>
-        </Card>
-        <Card className="block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden mt-5">
-          <CardBody>
-            <div className="relative pb-48 overflow-hidden">
-              <img
-                className="absolute inset-0 h-full w-full object-cover rounded-t-lg"
-                src="https://images.unsplash.com/photo-1475855581690-80accde3ae2b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-                alt=""
-              />
-            </div>
-
-            <h2 className="mt-2 mb-2  font-bold">Blog Post Title</h2>
-            <div className='text-sm'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
-          </CardBody>
-          <CardFooter></CardFooter>
-        </Card>
-
-        <Card className="block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden mt-5">
-          <CardBody>Inside a card</CardBody>
-          <CardFooter></CardFooter>
-        </Card>
-
-        <Card className="block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden mt-5">
-          <CardBody>
-            <div className="relative pb-48 overflow-hidden">
-              <img
-                className="absolute inset-0 h-full w-full object-cover rounded-t-lg"
-                src="https://images.unsplash.com/photo-1475855581690-80accde3ae2b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-                alt=""
-              />
-            </div>
-
-            <h2 class="mt-2 mb-2  font-bold">Blog Post Title</h2>
-            <div className='text-sm'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</div>
-          </CardBody>
-          <CardFooter></CardFooter>
-        </Card>
-        <Card className="block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden mt-5">
-          <CardBody>Inside a card</CardBody>
-          <CardFooter></CardFooter>
-        </Card>
-      </div>
-      </Container>
-    </Layout></>
-  );
+  return {
+    props: {
+      subscription: preview
+        ? {
+            ...graphqlRequest,
+            initialData: await request(graphqlRequest),
+            token: process.env.NEXT_EXAMPLE_CMS_DATOCMS_API_TOKEN,
+            environment: process.env.NEXT_DATOCMS_ENVIRONMENT || null,
+          }
+        : {
+            enabled: false,
+            initialData: await request(graphqlRequest),
+          },
+    },
+  };
 }
 
-export default index;
+export default function Index({ subscription }) {
+  const {
+    data: { allPosts, site, blog, author },
+  } = useQuerySubscription(subscription);
+
+  const heroPost = allPosts[0];
+  const morePosts = allPosts.slice(1);
+  const metaTags = blog.seo.concat(site.favicon);
+  console.log(allPosts);
+  return (
+    <>
+      <Layout preview={subscription.preview}>
+        <Head>{renderMetaTags(metaTags)}</Head>
+        <Container>
+            <div className="grid lg:grid-cols-3 sm:grid-cols-1 gap-4">
+          {allPosts.map((post) => (
+            
+              <Card className="block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden mt-5">
+                <CardBody>
+                  
+                    <Image
+                      className="absolute inset-0 h-full w-full object-cover rounded-t-lg"
+                      src={post.coverImage.responsiveImage.src}
+                      alt=""
+                      width={500}
+                      height = {200}
+                    />
+                  <span class="inline-block px-2 py-1 leading-none bg-orange-200 text-orange-800 rounded-full font-semibold uppercase tracking-wide text-xs">{post.date}</span>
+
+                  <h2 className="mt-2 mb-2  font-bold">{post.title}</h2>
+                  <div className="text-sm">
+                   {post.excerpt}
+                   <Avatar name={post.author.name} picture={post.author.picture}/>
+                  </div>
+                </CardBody>
+                <CardFooter></CardFooter>
+              </Card>
+           
+          ))} 
+          </div>
+        </Container>
+      </Layout>
+    </>
+  );
+}

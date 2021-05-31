@@ -3,19 +3,28 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import { Image } from 'react-datocms'
+import { useLocation } from 'react-router-dom';
+import { isThisMinute } from 'date-fns';
+import { useRouter } from 'next/router'
+import { route } from 'next/dist/next-server/server/router';
+
+
 
 const navigation = [
-  { name: 'Blog', href: '/posts', current: true },
+  { name: 'Blog', href: '/posts', current: false },
   { name: 'About Me', href: '/about', current: false },
   { name: 'Contact Me', href: '#', current: false },
   { name: 'Calendar', href: '#', current: false },
 ]
-
+ 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Header() {
+export default function Header(props) {
+  const router = useRouter();
+  const currentPath = router.asPath;
+  
   return (
     <Disclosure as="nav" className="bg-white-800 shadow">
       {({ open }) => (
@@ -50,12 +59,15 @@ export default function Header() {
                 </div>
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
+                    
                     {navigation.map((item) => (
+                      
                       <a
                         key={item.name}
                         href={item.href}
                         className={classNames(
-                          item.current ? 'bg-red-500 text-white' : 'text-black hover:bg-red-700 hover:text-white',
+                          
+                          item.href === currentPath ? 'border-red-500 text-black border-b-4' : 'text-black hover:bg-red-700 hover:text-white',
                           'px-3 py-2 rounded-md text-sm font-medium'
                         )}
                         aria-current={item.current ? 'page' : undefined}
@@ -152,7 +164,7 @@ export default function Header() {
                   key={item.name}
                   href={item.href}
                   className={classNames(
-                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 border-t-4 hover:bg-gray-700 hover:text-white',
                     'block px-3 py-2 rounded-md text-base font-medium'
                   )}
                   aria-current={item.current ? 'page' : undefined}
