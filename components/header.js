@@ -5,9 +5,9 @@ import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import { Image } from 'react-datocms'
 
 const navigation = [
-  { name: 'Blog', href: '#', current: true },
+  { name: 'Blog', href: '/posts', current: true },
   { name: 'About Me', href: '/about', current: false },
-  { name: 'Projects', href: '#', current: false },
+  { name: 'Contact Me', href: '#', current: false },
   { name: 'Calendar', href: '#', current: false },
 ]
 
@@ -55,7 +55,7 @@ export default function Header() {
                         key={item.name}
                         href={item.href}
                         className={classNames(
-                          item.current ? 'bg-red-500 text-white' : 'text-gray-300 hover:bg-red-700 hover:text-white',
+                          item.current ? 'bg-red-500 text-white' : 'text-black hover:bg-red-700 hover:text-white',
                           'px-3 py-2 rounded-md text-sm font-medium'
                         )}
                         aria-current={item.current ? 'page' : undefined}
