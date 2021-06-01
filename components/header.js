@@ -3,7 +3,6 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import { Image } from 'react-datocms'
-import { useLocation } from 'react-router-dom';
 import { isThisMinute } from 'date-fns';
 import { useRouter } from 'next/router'
 import { route } from 'next/dist/next-server/server/router';
@@ -14,7 +13,7 @@ const navigation = [
   { name: 'Blog', href: '/posts', current: false },
   { name: 'About Me', href: '/about', current: false },
   { name: 'Contact Me', href: '/contact', current: false },
-  { name: 'Calendar', href: '#', current: false },
+  { name: 'Calendar', href: '/calendar', current: false },
 ]
  
 function classNames(...classes) {
@@ -67,7 +66,7 @@ export default function Header(props) {
                         href={item.href}
                         className={classNames(
                           
-                          item.href === currentPath ? 'border-red-500 text-black border-b-4' : 'text-black hover:bg-red-700 hover:text-white rounded-md',
+                          item.href === currentPath ? 'border-salmon text-black border-b-4' : 'text-black hover:bg-mike-blue hover:text-white rounded-md',
                           'px-3 py-2 text-sm font-medium'
                         )}
                         aria-current={item.current ? 'page' : undefined}
