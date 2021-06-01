@@ -17,9 +17,9 @@ export default function Contact() {
   return (
     <div>
       <Layout>
-        <section className="block py-24 lg:pt-10 mt-100">
+        <section className="block py-24 lg:pt-5 pt-0 mt-5 sm:mt-0">
           <div className="container mx-auto px-4">
-            <div className="flex flex-wrap justify-center lg:mt-0 mt-48">
+            <div className="flex flex-wrap justify-center lg:mt-0 mt-5">
               <div className="w-full lg:w-6/12 px-4">
                 <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300">
                   <div className="flex-auto p-5 lg:p-10">
@@ -48,17 +48,30 @@ export default function Contact() {
                           })}
                           style={{ transition: "all .15s ease" }}
                         />
-                        {errors.fullName?.type === "required" &&
-                          <div className="text-white px-6 py-1 border-0 rounded relative mb-2 bg-red-500">
-                          <span className="text-xl inline-block mr-2 align-middle">
-                            X
-                          </span>
-                          <span className="inline-block align-middle mr-8">
-                            <b className="capitalize">Oops!</b> Name is required!
-                          </span>
-                          
-                        </div>
-                          }
+                        {errors.fullName?.type === "required" && (
+                          <div className="text-white px-1 py-1 border-0 rounded relative mb-2 bg-red-500">
+                            <span className="text-xl inline-block mr-2 align-middle">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-6 w-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                />
+                              </svg>
+                            </span>
+                            <span className="inline-block align-middle mr-8">
+                              <b className="capitalize">Oops!</b> Name is
+                              required!
+                            </span>
+                          </div>
+                        )}
                       </div>
 
                       <div className="relative w-full mb-3">
@@ -72,13 +85,38 @@ export default function Contact() {
                           name="email"
                           type="email"
                           {...register("email", {
-                            required: true,
+                            validate:{
+                                isValidEmail: (value)=> /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+                            } ,
                             maxLength: 20,
                           })}
                           className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                           placeholder="Email"
                           style={{ transition: "all .15s ease" }}
                         />
+                        {errors.email && errors.email?.type === 'isValidEmail' && (
+                          <div className="text-white px-1 py-1 border-0 rounded relative mb-3 bg-red-500">
+                            <span className="text-xl inline-block mr-2 align-middle">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-6 w-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                />
+                              </svg>
+                            </span>
+                            <span className="inline-block align-middle mr-8">
+                              <b className="Capitalize">Oops!</b> Email is invalid!
+                            </span>
+                          </div>
+                        )}
                       </div>
 
                       <div className="relative w-full mb-3">
@@ -99,16 +137,30 @@ export default function Contact() {
                           className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                           placeholder="Type a message..."
                         />
-                        {errors.message?.type === "required" &&
-                          <div className="text-white px-6 py-1 border-0 rounded relative mb-2 bg-red-500">
-                          <span className="text-xl inline-block mr-2 align-middle">
-                            X
-                          </span>
-                          <span className="inline-block align-middle mr-8">
-                            <b className="capitalize">Oops!</b> Message is required!
-                          </span>
-                          
-                        </div>}
+                        {errors.message?.type === "required" && (
+                          <div className="text-white px-1 py-1 border-0 rounded relative mb-3 bg-red-500">
+                            <span className="text-xl inline-block mr-2 align-middle">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-6 w-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                />
+                              </svg>
+                            </span>
+                            <span className="inline-block align-middle mr-8">
+                              <b className="capitalize">Oops!</b> Message is
+                              required!
+                            </span>
+                          </div>
+                        )}
                       </div>
                       <div className="text-center mt-6">
                         <button
