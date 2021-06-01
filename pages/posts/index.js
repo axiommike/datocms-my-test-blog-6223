@@ -100,7 +100,9 @@ export default function Index({ subscription }) {
                   <h2 className="mt-2 mb-2  font-bold">{post.title}</h2>
                   <div className="text-sm">
                    {post.excerpt}
-                   <Avatar name={post.author.name} picture={post.author.picture} className='flex'/><div className='relative text-right'><a href='./posts/'>{post.slug}Read more...</a></div>
+                   <Avatar name={post.author.name} picture={post.author.picture} className='flex'/><div className='relative text-right'>
+                     <a href={`/posts/${post.slug}`}>
+                       Read more...</a></div>
                   </div>
                 </CardBody>
                 <CardFooter></CardFooter>
