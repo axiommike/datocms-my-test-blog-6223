@@ -1,7 +1,8 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { Card, CardBody, Container } from "tailwind-react-ui";
 import Layout from "../components/layout";
 import { useForm, SubmitHandler } from "react-hook-form";
+import axios from "axios";
 
 export default function Contact() {
   const {
@@ -12,7 +13,23 @@ export default function Contact() {
   } = useForm({
     mode: "onBlur", // "onChange"
   });
-  const onSubmit = (data) => console.log(data);
+
+  const onSubmit = (data) => {
+      console.log(data);
+
+      axios.post('/api/sendMail', data)
+      .then((response) => {
+        console.log(response);
+      }, (error) => {
+        console.log(error);
+      });
+    }
+
+  const [formError, setFormError] = useState({ error: "" });
+  const [querySubject, setQuerySetsubject] = useState("");
+  const [fullName_, setFullName] = useState("");
+  const [clientEmail, setClientEmail] = useState("");
+  const [clientMsg, setClientMsg] = useState("");
 
   return (
     <div>
@@ -40,6 +57,7 @@ export default function Contact() {
                         <input
                           name="fullName"
                           type="text"
+                          onChange={(e) => setFullName(e.target.value)}
                           className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                           placeholder="Full Name"
                           {...register("fullName", {
@@ -84,6 +102,7 @@ export default function Contact() {
                         <input
                           name="email"
                           type="email"
+                          onChange={(e) => setClientEmail(e.target.value)}
                           {...register("email", {
                             validate:{
                                 isValidEmail: (value)=> /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
@@ -128,11 +147,12 @@ export default function Contact() {
                         </label>
                         <textarea
                           name="message"
+                          onChange={(e) => setClientMsg(e.target.value)}
                           rows="4"
                           cols="80"
                           {...register("message", {
                             required: true,
-                            maxLength: 20,
+                            maxLength: 500,
                           })}
                           className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                           placeholder="Type a message..."

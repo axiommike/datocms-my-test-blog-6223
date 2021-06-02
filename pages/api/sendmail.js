@@ -1,29 +1,48 @@
-import React from "react";
-const mail = require("@sendgrid/mail");
-mail.setApiKey(process.env.SENDGRID_API_KEY);
+import { sendMailToMe } from "../../utils/sendMailToMe";
 
-function Sendmail(req,res) {
-  const body = JSON.parse(req.body);
-//Create message from request
-  const message = `
-  Name: ${body.name}\r\n
-  Email: ${body.email}\r\n
-  Message: ${body.message}
-`;
-mail.send({
-    to: 'mike@mikecameron.ca',
-    from: 'mike@mikecameron.ca',
-    subject: 'New Message from ' + body.name,
-    text: message,
-    html: message.replace(/\r\n/g, '<br>'),
-  }).then(() => {
-    res.status(200).json({ status: 'Ok' });
-  }).catch((error) => {
-    console.log(error)
-    res.json({status:error}); 
-  })
+export default async function handler(req, res) {
+  if (req.method === "POST") {
+    try {
+      const { email, fullName, message } = req.body;
+      if (
+        typeof (email || fullName || message) === "undefined"
+      ) {
+        console.log(" ************* Invalid Data received ************ ");
 
-  return <div></div>;
+        return res
+          .status(400)
+          .send({ error: "bad request, missing required data!" });
+      } else {
+        //  Data received as expected
+        try {
+          const sendGridResponse = await sendMailToMe(
+            fullName,
+            message,
+            email
+          );
+            console.log(fullName)
+          return res.status(200).send({
+            sg_response: sendGridResponse,
+          });
+        } catch (err) {
+          console.log(
+            "ERROR WHILE SENDING MAIL TO *YOU* THROUGH WEB API >> "+ err,
+            err
+          );
+
+          return res.status(400).send({
+            err_message: "bad request",
+          });
+        }
+      }
+    } catch (err) {
+      console.log("Err while sending Mail through send grid >> ", err);
+      return res
+        .status(400)
+        .send({ error: "Error in sendgrid Service.", errMsg: err });
+    }
+  }
+
+  res.status(400).send({ error: "bad request" });
+  return {test:'test'}
 }
-
-export default Sendmail;
