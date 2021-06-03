@@ -147,18 +147,17 @@ export default function Contact() {
                                 type="email"
                                 onChange={(e) => setClientEmail(e.target.value)}
                                 {...register("email", {
-                                  validate: {
-                                    isValidEmail: (value) =>
-                                      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
-                                  },
-                                  maxLength: 20,
+                                  required: "Email is required",
+                                  pattern: {
+                                    value: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                                    message: "Invalid email address"
+                                  }
                                 })}
                                 className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                                 placeholder="Email"
                                 style={{ transition: "all .15s ease" }}
                               />
-                              {errors.email &&
-                                errors.email?.type === "isValidEmail" && (
+                              {errors.email && (
                                   <div className="text-white px-1 py-1 border-0 rounded relative mb-3 bg-red-500">
                                     <span className="text-xl inline-block mr-2 align-middle">
                                       <svg
@@ -177,11 +176,11 @@ export default function Contact() {
                                       </svg>
                                     </span>
                                     <span className="inline-block align-middle mr-8">
-                                      <b className="Capitalize">Oops!</b> Email
-                                      is invalid!
+                                      <b className="Capitalize">Oops!</b> {errors.email.message}
                                     </span>
                                   </div>
                                 )}
+                               
                             </div>
 
                             <div className="relative w-full mb-3">
