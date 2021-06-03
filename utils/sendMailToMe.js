@@ -1,41 +1,49 @@
 const SENDGRID_API_URL = "https://api.sendgrid.com/v3/mail/send";
 const SENDGRID_API_KEY = process.env.NEW_SENDGRID_API_KEY;
+import {useState } from 'react'
 
-const sendMailToMe = async (
-  fullName, // from name on email
-  formMessage, // value we receive from our contact form
-  email // value we receive from our contact form
-) => {
-  console.log(email)
-
+const sendMailToMe = (fullName,formMessage,email)=> {
   const mail = require('@sendgrid/mail');
   mail.setApiKey(SENDGRID_API_KEY);
-  
-const message = `
-  Name: ${fullName}\r\n
-  Email: ${email}\r\n
-  Message: ${formMessage}
-`;
+  console.log('test')
 const msg = {
   to: 'mike@mikecameron.ca',
   from: 'mike@mikecameron.ca',
-  templateId: 'd-3481ff06ea924128baa7c16a5a7f4840',
+  templateId: 'd-3481ff06ea924128baa7c16a5a7f4840',   
   dynamicTemplateData: {
     subject: 'Testing Templates',
     fullName: fullName,
     message: formMessage,
   },
 };
-mail.send(msg).then((response) => {
-  return response[0].statusCode
+// return mail.send(msg, (error, result) => {
+//   if (error) {
+//     console.log(error)
+//     return 66
+//   }
+//   else {
+//     console.log(result)
+//     return 42
+//   }
+// });
+
+mail.send(msg)
+.then((response) => {
   console.log('in response')
-  console.log(response[0].headers)
+  console.log(response[0])
+  return {"results":'in success'};
+ 
+  
 })
 .catch((error) => {
+  console.log("there was an error")
   console.error(error)
+  return {"results":'in error'};
+  
+  
 })
  
-  //return response;
+  return {"results":'test'};
 }
 
 export { sendMailToMe };
