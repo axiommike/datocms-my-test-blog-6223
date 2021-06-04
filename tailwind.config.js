@@ -9,6 +9,7 @@ module.exports = {
         "accent-7": "#333",
         "mike-blue":"#0360ad",
         "salmon": "#ed7c58",
+        "mike-lt-blue": "#68b7d6",
         success: "#0070f3",
         cyan: "#79FFE1",
       },

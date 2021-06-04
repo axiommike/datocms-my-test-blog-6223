@@ -7,6 +7,9 @@ import Layout from "../components/layout";
 import MoreStories from "../components/more-stories";
 import { request } from "../lib/datocms";
 import { metaTagsFragment, responsiveImageFragment } from "../lib/fragments";
+import {Card, CardBody, CardFooter} from 'tailwind-react-ui'
+import Image from "next/image";
+
 
 export async function getStaticProps({ preview }) {
   const graphqlRequest = {
@@ -138,16 +141,14 @@ export default function Index({ subscription }) {
                   <div className="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center">
                     <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                       <div className="px-4 py-5 flex-auto">
-                        <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
+                        <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-mike-lt-blue">
                           <i className="fas fa-award"></i>
                         </div>
                         <h6 className="text-xl font-semibold">
-                          Awarded Agency
+                          Frameworks used
                         </h6>
                         <p className="mt-2 mb-4 text-gray-600">
-                          Divide details about your product or agency work into
-                          parts. A paragraph describing a feature will be
-                          enough.
+                          This site is built in React with the Next.js framework and hosted on Vercel. I am using the Tailwind CSS library for all of the styling. Content is stored on DatoCMS and using their GraphQL API.
                         </p>
                       </div>
                     </div>
@@ -156,16 +157,17 @@ export default function Index({ subscription }) {
                   <div className="w-full md:w-4/12 px-4 text-center">
                     <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                       <div className="px-4 py-5 flex-auto">
-                        <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400">
+                        <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-mike-blue">
                           <i className="fas fa-retweet"></i>
                         </div>
                         <h6 className="text-xl font-semibold">
-                          Free Revisions
+                          So much to learn!
                         </h6>
                         <p className="mt-2 mb-4 text-gray-600">
-                          Keep you user engaged by providing meaningful
-                          information. Remember that by this time, the user is
-                          curious.
+                          I love to learn but figuring out where to focus 
+                          can be a pretty big challenge. I've got the fundementals of 
+                          programming somewhat in hand so I'll just keep playing with features
+                          that are appealing for me.
                         </p>
                       </div>
                     </div>
@@ -174,16 +176,16 @@ export default function Index({ subscription }) {
                   <div className="pt-6 w-full md:w-4/12 px-4 text-center">
                     <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                       <div className="px-4 py-5 flex-auto">
-                        <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-green-400">
+                        <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-salmon">
                           <i className="fas fa-fingerprint"></i>
                         </div>
                         <h6 className="text-xl font-semibold">
-                          Verified Company
+                          Community Focused
                         </h6>
                         <p className="mt-2 mb-4 text-gray-600">
-                          Write a few lines about each one. A paragraph
-                          describing a feature will be enough. Keep you user
-                          engaged!
+                          I'm having a lot of fun building community with the work I 
+                          do online in the Men's space and will likely look at ways in 
+                          which I can leverage tech to foster connection.
                         </p>
                       </div>
                     </div>
@@ -196,27 +198,27 @@ export default function Index({ subscription }) {
                       <i className="fas fa-user-friends text-xl"></i>
                     </div>
                     <h3 className="text-3xl mb-2 font-semibold leading-normal">
-                      Working with us is a pleasure
+                      Let's play with some quasi dynamic content on the home page. 
+                       
+                  
                     </h3>
                     <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-gray-700">
-                      Don't let your uses guess by attaching tooltips and
-                      popoves to any element. Just make sure you enable them
-                      first via JavaScript.
+                    We'll see about pulling the most recent blog posts here using getStaticProps() 
+                      from Next.js. For now I am going to play with styling the blog grid below by hand. 
+                      Stay tuned... 
                     </p>
                     <p className="text-lg font-light leading-relaxed mt-0 mb-4 text-gray-700">
-                      The kit comes with three pre-built pages to help you get
-                      started faster. You can change the text and images and
-                      you're good to go. Just make sure you enable them first
-                      via JavaScript.
+                      Or you can jump right to the blog page linked below. Still some dummy content there 
+                      but I will update as I go.
                     </p>
                     <a
-                      href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/presentation"
+                      href="/posts"
                       className="font-bold text-gray-800 mt-8"
                     >
-                      Check Tailwind Starter Kit!
+                      Check out my blog posts!
                     </a>
                   </div>
-
+               
                   <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">
                     <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-pink-600">
                       <img
@@ -252,6 +254,30 @@ export default function Index({ subscription }) {
                     </div>
                   </div>
                 </div>
+                <section>
+                <Card className="block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden mt-5">
+                <CardBody>
+                  
+                    <Image
+                      className="absolute inset-0 h-full w-full object-cover rounded-t-lg"
+                      src='https://mikecameron.ca/wp-content/uploads/2021/05/bullying-768x432.png'
+                      alt=""
+                      width={500}
+                      height = {200}
+                    />
+                  <span class="inline-block px-2 py-1 leading-none bg-orange-200 text-orange-800 rounded-full font-semibold uppercase tracking-wide text-xs">Jan 22, 2021</span>
+
+                  <h2 className="mt-2 mb-2  font-bold">Test Title</h2>
+                  <div className="text-sm">
+                   Test Excerpt
+                   <div className='relative text-right'>
+                     <a href={`/posts/tet`}>
+                       Read more...</a></div>
+                  </div>
+                </CardBody>
+                <CardFooter></CardFooter>
+              </Card>
+                </section>
               </div>
             </section>
 
@@ -348,168 +374,7 @@ export default function Index({ subscription }) {
               </div>
             </section>
 
-            <section className="pt-20 pb-48">
-              <div className="container mx-auto px-4">
-                <div className="flex flex-wrap justify-center text-center mb-24">
-                  <div className="w-full lg:w-6/12 px-4">
-                    <h2 className="text-4xl font-semibold">
-                      Here are our heroes
-                    </h2>
-                    <p className="text-lg leading-relaxed m-4 text-gray-600">
-                      According to the National Oceanic and Atmospheric
-                      Administration, Ted, Scambos, NSIDClead scentist, puts the
-                      potentially record maximum.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex flex-wrap">
-                  <div className="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
-                    <div className="px-6">
-                      <img
-                        alt="..."
-                        src="../assets/img/team-1-800x800.jpg"
-                        className="shadow-lg rounded-full max-w-full mx-auto"
-                        style={{ maxWidth: "120px" }}
-                      />
-                      <div className="pt-6 text-center">
-                        <h5 className="text-xl font-bold">Ryan Tompson</h5>
-                        <p className="mt-1 text-sm text-gray-500 uppercase font-semibold">
-                          Web Developer
-                        </p>
-                        <div className="mt-6">
-                          <button
-                            className="bg-blue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                            type="button"
-                          >
-                            <i className="fab fa-twitter"></i>
-                          </button>
-                          <button
-                            className="bg-blue-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                            type="button"
-                          >
-                            <i className="fab fa-facebook-f"></i>
-                          </button>
-                          <button
-                            className="bg-pink-500 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                            type="button"
-                          >
-                            <i className="fab fa-dribbble"></i>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
-                    <div className="px-6">
-                      <img
-                        alt="..."
-                        src="../assets/img/team-2-800x800.jpg"
-                        className="shadow-lg rounded-full max-w-full mx-auto"
-                        style={{ maxWidth: "120px" }}
-                      />
-                      <div className="pt-6 text-center">
-                        <h5 className="text-xl font-bold">Romina Hadid</h5>
-                        <p className="mt-1 text-sm text-gray-500 uppercase font-semibold">
-                          Marketing Specialist
-                        </p>
-                        <div className="mt-6">
-                          <button
-                            className="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                            type="button"
-                          >
-                            <i className="fab fa-google"></i>
-                          </button>
-                          <button
-                            className="bg-blue-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                            type="button"
-                          >
-                            <i className="fab fa-facebook-f"></i>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
-                    <div className="px-6">
-                      <img
-                        alt="..."
-                        src="../assets/img/team-3-800x800.jpg"
-                        className="shadow-lg rounded-full max-w-full mx-auto"
-                        style={{ maxWidth: "120px" }}
-                      />
-                      <div className="pt-6 text-center">
-                        <h5 className="text-xl font-bold">Alexa Smith</h5>
-                        <p className="mt-1 text-sm text-gray-500 uppercase font-semibold">
-                          UI/UX Designer
-                        </p>
-                        <div className="mt-6">
-                          <button
-                            className="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                            type="button"
-                          >
-                            <i className="fab fa-google"></i>
-                          </button>
-                          <button
-                            className="bg-blue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                            type="button"
-                          >
-                            <i className="fab fa-twitter"></i>
-                          </button>
-                          <button
-                            className="bg-gray-800 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                            type="button"
-                          >
-                            <i className="fab fa-instagram"></i>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="w-full md:w-6/12 lg:w-3/12 lg:mb-0 mb-12 px-4">
-                    <div className="px-6">
-                      <img
-                        alt="..."
-                        src="../assets/img/team-4-470x470.png"
-                        className="shadow-lg rounded-full max-w-full mx-auto"
-                        style={{ maxWidth: "120px" }}
-                      />
-                      <div className="pt-6 text-center">
-                        <h5 className="text-xl font-bold">Jenna Kardi</h5>
-                        <p className="mt-1 text-sm text-gray-500 uppercase font-semibold">
-                          Founder and CEO
-                        </p>
-                        <div className="mt-6">
-                          <button
-                            className="bg-pink-500 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                            type="button"
-                          >
-                            <i className="fab fa-dribbble"></i>
-                          </button>
-                          <button
-                            className="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                            type="button"
-                          >
-                            <i className="fab fa-google"></i>
-                          </button>
-                          <button
-                            className="bg-blue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                            type="button"
-                          >
-                            <i className="fab fa-twitter"></i>
-                          </button>
-                          <button
-                            className="bg-gray-800 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
-                            type="button"
-                          >
-                            <i className="fab fa-instagram"></i>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
+            
 
             <section className="pb-20 relative block bg-gray-900">
               <div
