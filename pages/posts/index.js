@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Image from 'next/image'
+import { useState } from "react";
 import { renderMetaTags, useQuerySubscription } from "react-datocms";
 import { Card, CardBody, CardFooter } from "tailwind-react-ui";
 import Avatar from "../../components/avatar";
@@ -77,13 +78,31 @@ export default function Index({ subscription }) {
   const morePosts = allPosts.slice(1);
   const metaTags = blog.seo.concat(site.favicon);
   console.log(allPosts);
+   const [filteredPosts, setFilteredPosts] = useState(allPosts)
+  const filterData = (e)=>{
+    let _filteredPosts = allPosts.filter(posts=>posts.title.toLowerCase().includes(e.target.value.toLowerCase()))
+    setFilteredPosts(_filteredPosts)
+  }
+
+  const sortData = (e)=>{
+    
+  }
   return (
     <>
       <Layout preview={subscription.preview}>
         <Head>{renderMetaTags(metaTags)}</Head>
         <Container>
+          <div className='h-20 shadow-lg rounded-md flex border-1 mt-4'>
+            <div className='my-auto relative  border-3'>
+            <div className=''><label className='p-2 relative -top-6 left-16 bg-white'>Filter:</label><input type='text' className='box-border h-12 p-4 border-4 rounded-lg pr-6' onChange={(e)=>{filterData(e)}}/></div>
+            </div>
+              <h1 className='flex flex-row mx-auto my-auto font-extrabold text-2xl'>Recent Articles </h1>
+            {/* <div className='my-auto relative  border-3'>
+            <div className=''><label className='p-2 relative -top-6 left-16 bg-white'>Order By:</label><select className='box-border h-12 p-4 border-4 rounded-lg pr-6 w-25' onChange={(e)=>{sortData(e)}}><option>Date</option></select></div>
+            </div> */}
+          </div>
             <div className="grid lg:grid-cols-3 sm:grid-cols-1 gap-4">
-          {allPosts.map((post) => (
+          {filteredPosts.map((post) => (
             
               <Card className="block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden mt-5">
                 <CardBody>
