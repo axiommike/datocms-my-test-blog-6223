@@ -86,8 +86,7 @@ export default function Contact() {
                             Want to contact me?
                           </h4>
                           <p className="leading-relaxed mt-1 mb-4 text-gray-600">
-                            Someday this contact form will actually work and you
-                            can.
+                            Now you can! This form uses Next.js API to send via SendGrid.
                           </p>
                           <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="relative w-full mb-3 mt-8">
