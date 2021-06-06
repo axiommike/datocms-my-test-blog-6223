@@ -1,29 +1,29 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
-import { Image } from 'react-datocms'
-import { isThisMinute } from 'date-fns';
-import { useRouter } from 'next/router'
-import { route } from 'next/dist/next-server/server/router';
-
-
+import { Fragment } from "react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
+import { Image } from "react-datocms";
+import { isThisMinute } from "date-fns";
+import { useRouter } from "next/router";
+import { route } from "next/dist/next-server/server/router";
+import { signIn, signOut, useSession } from "next-auth/client";
 
 const navigation = [
-  { name: 'Blog', href: '/posts', current: false },
-  { name: 'About Me', href: '/about', current: false },
-  { name: 'Contact Me', href: '/contact', current: false },
-  { name: 'Calendar', href: '/calendar', current: false },
-]
- 
+  { name: "Blog", href: "/posts", current: false },
+  { name: "About Me", href: "/about", current: false },
+  { name: "Contact Me", href: "/contact", current: false },
+  { name: "Calendar", href: "/calendar", current: false },
+];
+
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 export default function Header(props) {
   const router = useRouter();
   const currentPath = router.asPath;
-  
+  const [session, loading] = useSession();
+
   return (
     <Disclosure as="nav" className="bg-white-800 shadow">
       {({ open }) => (
@@ -32,7 +32,7 @@ export default function Header(props) {
             <div className="relative flex items-center justify-between h-16">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
-                <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-salmon hover:bg-mike-blue-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
                     <XIcon className="block h-6 w-6" aria-hidden="true" />
@@ -43,33 +43,32 @@ export default function Header(props) {
               </div>
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex-shrink-0 flex items-center">
-                  <a href='/'>
-                  <img
-                    className="block lg:hidden h-8 w-auto"
-                    src="https://mikecameron.ca/wp-content/uploads/2020/09/Mike-Cameron-Logo-Anternative.png"
-                    alt="Mike Cameron"
-                  />
-                  <img
-                    className="hidden lg:block h-8 w-auto"
-                    src="https://mikecameron.ca/wp-content/uploads/2020/09/Mike-Cameron-Logo-Anternative.png"
-                    alt="Workflow"
-                  />
+                  <a href="/">
+                    <img
+                      className="block lg:hidden h-8 w-auto"
+                      src="https://mikecameron.ca/wp-content/uploads/2020/09/Mike-Cameron-Logo-Anternative.png"
+                      alt="Mike Cameron"
+                    />
+                    <img
+                      className="hidden lg:block h-8 w-auto"
+                      src="https://mikecameron.ca/wp-content/uploads/2020/09/Mike-Cameron-Logo-Anternative.png"
+                      alt="Workflow"
+                    />
                   </a>
                 </div>
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
-                    
                     {navigation.map((item) => (
-                      
                       <a
                         key={item.name}
                         href={item.href}
                         className={classNames(
-                          
-                          item.href === currentPath ? 'border-salmon text-black border-b-4' : 'text-black hover:bg-mike-blue hover:text-white rounded-md',
-                          'px-3 py-2 text-sm font-medium'
+                          item.href === currentPath
+                            ? "border-salmon text-black border-b-4"
+                            : "text-black hover:bg-mike-blue hover:text-white rounded-md",
+                          "px-3 py-2 text-sm font-medium"
                         )}
-                        aria-current={item.current ? 'page' : undefined}
+                        aria-current={item.current ? "page" : undefined}
                       >
                         {item.name}
                       </a>
@@ -78,18 +77,29 @@ export default function Header(props) {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                
-
+              {!session && (
+                          <>
+                            <button className='bg-mike-blue rounded-md text-white p-1 font-semibold' onClick={() => signIn('google')}>Sign in</button>
+                          </>
+                        )}
                 {/* Profile dropdown */}
+                {session && (
                 <Menu as="div" className="ml-3 relative">
                   {({ open }) => (
                     <>
-                      <div>
-                        <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                      <div className='flex flex-row'>
+                        
+                        
+                          <>
+                            
+                           Welcome {session.user.name} 
+                          </>
+                        
+                         <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white ml-3">
                           <span className="sr-only">Open user menu</span>
                           <img
                             className="h-8 w-8 rounded-full"
-                            src="https://mikecameron.ca/wp-content/uploads/avatars/1/607382b3d1ff4-bpfull.jpg"
+                            src={session.user.image}
                             alt=""
                           />
                         </Menu.Button>
@@ -113,8 +123,8 @@ export default function Header(props) {
                               <a
                                 href="#"
                                 className={classNames(
-                                  active ? 'bg-gray-100' : '',
-                                  'block px-4 py-2 text-sm text-gray-700'
+                                  active ? "bg-gray-100" : "",
+                                  "block px-4 py-2 text-sm text-gray-700"
                                 )}
                               >
                                 Your Profile
@@ -126,8 +136,8 @@ export default function Header(props) {
                               <a
                                 href="#"
                                 className={classNames(
-                                  active ? 'bg-gray-100' : '',
-                                  'block px-4 py-2 text-sm text-gray-700'
+                                  active ? "bg-gray-100" : "",
+                                  "block px-4 py-2 text-sm text-gray-700"
                                 )}
                               >
                                 Settings
@@ -138,9 +148,10 @@ export default function Header(props) {
                             {({ active }) => (
                               <a
                                 href="#"
+                                onClick={() => signOut()}
                                 className={classNames(
-                                  active ? 'bg-gray-100' : '',
-                                  'block px-4 py-2 text-sm text-gray-700'
+                                  active ? "bg-gray-100" : "",
+                                  "block px-4 py-2 text-sm text-gray-700"
                                 )}
                               >
                                 Sign out
@@ -152,6 +163,7 @@ export default function Header(props) {
                     </>
                   )}
                 </Menu>
+                )}
               </div>
             </div>
           </div>
@@ -163,10 +175,12 @@ export default function Header(props) {
                   key={item.name}
                   href={item.href}
                   className={classNames(
-                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 border-t-4 hover:bg-gray-700 hover:text-white',
-                    'block px-3 py-2 rounded-md text-base font-medium'
+                    item.current
+                      ? "bg-gray-900 text-white"
+                      : "text-gray-800 border-t-4 hover:bg-mike-blue hover:text-white",
+                    "block px-3 py-2 rounded-md text-base font-medium"
                   )}
-                  aria-current={item.current ? 'page' : undefined}
+                  aria-current={item.current ? "page" : undefined}
                 >
                   {item.name}
                 </a>
@@ -176,5 +190,5 @@ export default function Header(props) {
         </>
       )}
     </Disclosure>
-  )
+  );
 }

@@ -7,9 +7,9 @@ import Layout from "../components/layout";
 import MoreStories from "../components/more-stories";
 import { request } from "../lib/datocms";
 import { metaTagsFragment, responsiveImageFragment } from "../lib/fragments";
-import {Card, CardBody, CardFooter} from 'tailwind-react-ui'
+import { Card, CardBody, CardFooter } from "tailwind-react-ui";
 import Image from "next/image";
-
+import { signIn, signOut, useSession } from "next-auth/client";
 
 export async function getStaticProps({ preview }) {
   const graphqlRequest = {
@@ -71,6 +71,7 @@ export default function Index({ subscription }) {
   const {
     data: { allPosts, site, blog },
   } = useQuerySubscription(subscription);
+  const [ session, loading ] = useSession()
 
   const heroPost = allPosts[0];
   const morePosts = allPosts.slice(1);
@@ -81,7 +82,7 @@ export default function Index({ subscription }) {
       <Layout preview={subscription.preview}>
         <Head>{renderMetaTags(metaTags)}</Head>
         <Container>
-          <main className='mt-1'>
+          <main className="mt-1">
             <div
               className="relative pt-16 pb-32 flex content-center items-center justify-center"
               style={{
@@ -108,7 +109,15 @@ export default function Index({ subscription }) {
                         Learning React and CSS in public!
                       </h1>
                       <p className="mt-4 text-lg text-gray-300">
-                        This is a playground for me learning how to code in React and using the Tailwind CSS framework. Thanks to <a href='https://github.com/creativetimofficial/tailwind-starter-kit' className='font-bold'>Tailwind Starter Kit</a> for this landing page.
+                        This is a playground for me learning how to code in
+                        React and using the Tailwind CSS framework. Thanks to{" "}
+                        <a
+                          href="https://github.com/creativetimofficial/tailwind-starter-kit"
+                          className="font-bold"
+                        >
+                          Tailwind Starter Kit
+                        </a>{" "}
+                        for this landing page.
                       </p>
                     </div>
                   </div>
@@ -148,7 +157,10 @@ export default function Index({ subscription }) {
                           Frameworks used
                         </h6>
                         <p className="mt-2 mb-4 text-gray-600">
-                          This site is built in React with the Next.js framework and hosted on Vercel. I am using the Tailwind CSS library for all of the styling. Content is stored on DatoCMS and using their GraphQL API.
+                          This site is built in React with the Next.js framework
+                          and hosted on Vercel. I am using the Tailwind CSS
+                          library for all of the styling. Content is stored on
+                          DatoCMS and using their GraphQL API.
                         </p>
                       </div>
                     </div>
@@ -164,10 +176,13 @@ export default function Index({ subscription }) {
                           So much to learn!
                         </h6>
                         <p className="mt-2 mb-4 text-gray-600">
-                          I love to learn but figuring out where to focus 
-                          can be a pretty big challenge. I've got the fundementals of 
-                          programming somewhat in hand so I'll just keep playing with features
-                          that are appealing for me.
+                          I love to learn but figuring out where to focus can be
+                          a pretty big challenge. I've got the fundementals of
+                          programming somewhat in hand so I'll just keep playing
+                          with features that are appealing for me.
+                        </p>
+                        <p>
+                          
                         </p>
                       </div>
                     </div>
@@ -183,9 +198,10 @@ export default function Index({ subscription }) {
                           Community Focused
                         </h6>
                         <p className="mt-2 mb-4 text-gray-600">
-                          I'm having a lot of fun building community with the work I 
-                          do online in the Men's space and will likely look at ways in 
-                          which I can leverage tech to foster connection.
+                          I'm having a lot of fun building community with the
+                          work I do online in the Men's space and will likely
+                          look at ways in which I can leverage tech to foster
+                          connection.
                         </p>
                       </div>
                     </div>
@@ -198,27 +214,24 @@ export default function Index({ subscription }) {
                       <i className="fas fa-user-friends text-xl"></i>
                     </div>
                     <h3 className="text-3xl mb-2 font-semibold leading-normal">
-                      Let's play with some quasi dynamic content on the home page. 
-                       
-                  
+                      Let's play with some quasi dynamic content on the home
+                      page.
                     </h3>
                     <p className="text-lg font-light leading-relaxed mt-4 mb-4 text-gray-700">
-                    We'll see about pulling the most recent blog posts here using getStaticProps() 
-                      from Next.js. For now I am going to play with styling the blog grid below by hand. 
-                      Stay tuned... 
+                      We'll see about pulling the most recent blog posts here
+                      using getStaticProps() from Next.js. For now I am going to
+                      play with styling the blog grid below by hand. Stay
+                      tuned...
                     </p>
                     <p className="text-lg font-light leading-relaxed mt-0 mb-4 text-gray-700">
-                      Or you can jump right to the blog page linked below. Still some dummy content there 
-                      but I will update as I go.
+                      Or you can jump right to the blog page linked below. Still
+                      some dummy content there but I will update as I go.
                     </p>
-                    <a
-                      href="/posts"
-                      className="font-bold text-gray-800 mt-8"
-                    >
+                    <a href="/posts" className="font-bold text-gray-800 mt-8">
                       Check out my blog posts!
                     </a>
                   </div>
-               
+
                   <div className="w-full md:w-4/12 px-4 mr-auto ml-auto">
                     <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-pink-600">
                       <img
@@ -255,28 +268,29 @@ export default function Index({ subscription }) {
                   </div>
                 </div>
                 <section>
-                <Card className="block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden mt-5">
-                <CardBody>
-                  
-                    <Image
-                      className="absolute inset-0 h-full w-full object-cover rounded-t-lg"
-                      src='https://mikecameron.ca/wp-content/uploads/2021/05/bullying-768x432.png'
-                      alt=""
-                      width={500}
-                      height = {200}
-                    />
-                  <span class="inline-block px-2 py-1 leading-none bg-orange-200 text-orange-800 rounded-full font-semibold uppercase tracking-wide text-xs">Jan 22, 2021</span>
+                  <Card className="block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden mt-5">
+                    <CardBody>
+                      <Image
+                        className="absolute inset-0 h-full w-full object-cover rounded-t-lg"
+                        src="https://mikecameron.ca/wp-content/uploads/2021/05/bullying-768x432.png"
+                        alt=""
+                        width={1920}
+                        height={1080}
+                      />
+                      <span className="inline-block px-2 py-1 leading-none bg-orange-200 text-orange-800 rounded-full font-semibold uppercase tracking-wide text-xs">
+                        Jan 22, 2021
+                      </span>
 
-                  <h2 className="mt-2 mb-2  font-bold">Test Title</h2>
-                  <div className="text-sm">
-                   Test Excerpt
-                   <div className='relative text-right'>
-                     <a href={`/posts/tet`}>
-                       Read more...</a></div>
-                  </div>
-                </CardBody>
-                <CardFooter></CardFooter>
-              </Card>
+                      <h2 className="mt-2 mb-2  font-bold">Test Title</h2>
+                      <div className="text-sm">
+                        Test Excerpt
+                        <div className="relative text-right">
+                          <a href={`/posts/tet`}>Read more...</a>
+                        </div>
+                      </div>
+                    </CardBody>
+                    <CardFooter></CardFooter>
+                  </Card>
                 </section>
               </div>
             </section>
@@ -374,8 +388,6 @@ export default function Index({ subscription }) {
               </div>
             </section>
 
-            
-
             <section className="pb-20 relative block bg-gray-900">
               <div
                 className="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20"
@@ -450,7 +462,6 @@ export default function Index({ subscription }) {
                 </div>
               </div>
             </section>
-            
           </main>
         </Container>
       </Layout>

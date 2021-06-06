@@ -16,6 +16,7 @@
     "date-fns": "2.21.1",
     "fs": "0.0.1-security",
     "next": "^10.2.3",
+    "next-auth": "^3.25.0",
     "npm": "^7.15.0",
     "react": "^17.0.2",
     "react-datocms": "^1.6.0",

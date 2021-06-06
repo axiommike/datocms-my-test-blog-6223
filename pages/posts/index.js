@@ -102,7 +102,7 @@ export default function Index({ subscription }) {
             </div> */}
           </div>
             <div className="grid lg:grid-cols-3 sm:grid-cols-1 gap-4">
-          {filteredPosts.map((post) => (
+          {filteredPosts.length ?  filteredPosts.map((post) => (
             
               <Card className="block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden mt-5">
                 <CardBody>
@@ -114,7 +114,7 @@ export default function Index({ subscription }) {
                       width={500}
                       height = {200}
                     />
-                  <span class="inline-block px-2 py-1 leading-none bg-orange-200 text-orange-800 rounded-full font-semibold uppercase tracking-wide text-xs">{post.date}</span>
+                  <span className="inline-block px-2 py-1 leading-none bg-orange-200 text-orange-800 rounded-full font-semibold uppercase tracking-wide text-xs">{post.date}</span>
 
                   <h2 className="mt-2 mb-2  font-bold">{post.title}</h2>
                   <div className="text-sm">
@@ -127,7 +127,7 @@ export default function Index({ subscription }) {
                 <CardFooter></CardFooter>
               </Card>
            
-          ))} 
+          )) : <div className='text-xl font-bold p-4 transition duration-2500 ease-in-out'>No Results Found</div>} 
           </div>
         </Container>
       </Layout>

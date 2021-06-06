@@ -48,9 +48,9 @@ export default class index extends Component {
               <div> |</div>
               <div class="h-8 w-full text-center font-bold">Groups</div>
               <div> |</div>
-              <div class="h-8 w-full text-center font-bold">Groups</div>
+              <div class="h-8 w-full text-center font-bold">Videos</div>
               <div> |</div>
-              <div class="h-8 w-full text-center font-bold">Groups</div>
+              <div class="h-8 w-full text-center font-bold">Events</div>
               <div> |</div>
               <div class="h-8 w-full text-center font-bold">Groups</div>
               <div> |</div>
@@ -63,15 +63,15 @@ export default class index extends Component {
             </div>
           </div>
           {/* Layout widget columns and feed column */}
-          <div class="max-w-1254 w-full rounded-lg shadow-lg flex-col  mx-auto">
+          <div class=" w-full rounded-lg shadow-lg flex-col  mx-auto">
             <div className="flex grid-cols-3 mx-auto gap-2 space-x-1 m-3">
-              <div className="bg-white w-1/4 p-4 text-center flex-col rounded-lg">
+              <div className="bg-white md:block md:w-1/4 p-4 text-center flex-col rounded-lg hidden">
                 <div className="font-black p-3">Social Networks</div>
                 <div>No Networks Configured</div>
                 <div>Social Networks</div>
               </div>
-              <div className="bg-white w-1/2 text-center">Feed Column</div>
-              <div className="bg-white w-1/4 text-center">Right Widget col</div>
+              <div className="bg-white md:w-1/2 text-center flex-col rounded-lg w-full">Feed Column</div>
+              <div className="bg-white md:block w-1/4 text-center flex-col rounded-lg hidden">Right Widget col</div>
             </div>
           </div>
         </div>
