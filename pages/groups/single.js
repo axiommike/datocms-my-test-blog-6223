@@ -40,7 +40,7 @@ export default class index extends Component {
               </div>
             </div>
           </div>
-          <div class="max-w-1254 w-full rounded-lg shadow-lg flex-col bg-white mx-auto">
+          <div class="w-full rounded-lg shadow-lg flex-col bg-white mx-auto">
             <div class="md:grid-cols-12 flex gap-1 mt-3 overflow-auto h-8">
               <div class="w-full h-full text-center rounded-b-sm font-bold my-auto hover:border-b-4 border-blue-600">
                 Groups
@@ -65,13 +65,13 @@ export default class index extends Component {
           {/* Layout widget columns and feed column */}
           <div class="max-w-1254 w-full rounded-lg shadow-lg flex-col  mx-auto">
             <div className="flex grid-cols-3 mx-auto gap-2 space-x-1 m-3">
-              <div className="bg-white w-1/6 p-4 text-center flex-col rounded-lg">
+              <div className="bg-white w-1/4 p-4 text-center flex-col rounded-lg">
                 <div className="font-black p-3">Social Networks</div>
                 <div>No Networks Configured</div>
                 <div>Social Networks</div>
               </div>
-              <div className="bg-white w-2/3 text-center">Feed Column</div>
-              <div className="bg-white w-1/6 text-center">Right Widget col</div>
+              <div className="bg-white w-1/2 text-center">Feed Column</div>
+              <div className="bg-white w-1/4 text-center">Right Widget col</div>
             </div>
           </div>
         </div>
