@@ -1,6 +1,7 @@
 import React from 'react'
+import ActivityItem from '../../components/activity/ActivityItem.js';
 import Layout from '../../components/layout.js';
-import { getAllGroupsID, getGroupByID} from '../../lib/buddyboss.js'
+import { getAllGroupsID, getGroupByID, getGroupActivityFeed} from '../../lib/buddyboss.js'
 
 export async function getStaticPaths() {
     const allGroups = await getAllGroupsID()
@@ -16,12 +17,13 @@ export async function getStaticPaths() {
     return {
       props: {
         group: group,
+        feed: await getGroupActivityFeed()
         },
     }
   }
  
 
-export default function Group({ group }) {
+export default function Group({ group, feed }) {
     return (
      
         <>
@@ -83,7 +85,11 @@ export default function Group({ group }) {
                 <div>No Networks Configured</div>
                 <div>Social Networks</div>
               </div>
-              <div className="bg-white md:w-1/2 text-center flex-col rounded-lg w-full">Feed Column</div>
+              <div className="md:w-1/2 text-center flex-col rounded-lg w-full">
+                {feed.map((item)=>(
+                  <ActivityItem item={item}/>
+                ))}
+                </div>
               <div className="bg-white md:block w-1/4 text-center flex-col rounded-lg hidden">Right Widget col</div>
             </div>
           </div>
