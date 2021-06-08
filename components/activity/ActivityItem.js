@@ -11,10 +11,10 @@ export default function ActivityItem({ item }) {
         <span className="font-bold ml-3">{item.name} </span>&nbsp;posted an
         update on {item.date}
       </div>
-      <div dangerouslySetInnerHTML={{ __html: item.content.rendered }}></div>
+      <div dangerouslySetInnerHTML={{ __html: item.content.rendered }} className='p-3 text-justify'></div>
       <div className="flex p-1 border-gray-300 mt-3 border-t border-b rounded-b-lg">
         <div className='flex hover:bg-gray-100 w-1/5 rounded-lg p-1 justify-center'>
-          Like
+          Like &nbsp;
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-6 w-6"
@@ -31,7 +31,7 @@ export default function ActivityItem({ item }) {
           </svg>
         </div>
         <div className='flex hover:bg-gray-100 w-1/5 rounded-lg p-1 justify-center'>
-          Comment
+          Comment  &nbsp;
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-6 w-6"

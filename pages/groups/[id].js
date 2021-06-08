@@ -1,4 +1,5 @@
 import React from 'react'
+import ActivityForm from '../../components/activity/ActivityForm.js';
 import ActivityItem from '../../components/activity/ActivityItem.js';
 import Layout from '../../components/layout.js';
 import { getAllGroupsID, getGroupByID, getGroupActivityFeed} from '../../lib/buddyboss.js'
@@ -86,6 +87,7 @@ export default function Group({ group, feed }) {
                 <div>Social Networks</div>
               </div>
               <div className="md:w-1/2 text-center flex-col rounded-lg w-full">
+                <ActivityForm/>
                 {feed.map((item)=>(
                   <ActivityItem item={item}/>
                 ))}
